@@ -23,6 +23,12 @@ namespace XamarinCamera
         {
             base.OnCreate(bundle);
 
+            definedColors = new[]
+            {
+                new Tuple<string, Color>("Black", Color.Rgb(0, 0, 0)),
+                new Tuple<string, Color>("White", Color.Rgb(255, 255, 255))
+            };
+
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
