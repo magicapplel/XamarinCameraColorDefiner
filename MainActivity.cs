@@ -39,6 +39,11 @@ namespace XamarinCamera
             btnCamera.Click += BtnCamera_Click;
         }
 
+        private void setupStart()
+        {
+
+        }
+
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
@@ -79,28 +84,32 @@ namespace XamarinCamera
             R = G = B = 0;
             var height = bitmap.Height;
             var width = bitmap.Width;
+
+            var startX = height / 4;
+            var endX = height / 4 * 3;
+            var startY = height / 4;
+            var endY = height / 4 * 3;
+
             var size = width * height;
-            var pixels = new int[size];
 
-            bitmap.GetPixels(pixels, 0, width, 0, 0, width, height);
-            foreach (var pixel in pixels)
-            {
-                R += Color.GetRedComponent(pixel);
-                G += Color.GetGreenComponent(pixel);
-                B += Color.GetBlueComponent(pixel);
-            }
-
-            //for (int i = 0; i < height; i++)
+            //bitmap.GetPixels(pixels, 0, width, 0, 0, width, height);
+            //foreach (var pixel in pixels)
             //{
-            //    for (int j = 0; j < width; j++)
-            //    {
-            //        int pixel = bitmap.GetPixel(i, j);
-            //        A += Color.GetAlphaComponent(pixel);
-            //        R += Color.GetRedComponent(pixel);
-            //        G += Color.GetGreenComponent(pixel);
-            //        B += Color.GetBlueComponent(pixel);
-            //    }
+            //    R += Color.GetRedComponent(pixel);
+            //    G += Color.GetGreenComponent(pixel);
+            //    B += Color.GetBlueComponent(pixel);
             //}
+
+            for (int i = startY; i < endY; i++)
+            {
+                for (int j = startX; j < endX; j++)
+                {
+                    int pixel = bitmap.GetPixel(i, j);
+                    R += Color.GetRedComponent(pixel);
+                    G += Color.GetGreenComponent(pixel);
+                    B += Color.GetBlueComponent(pixel);
+                }
+            }
 
             R /= size;
             G /= size;
